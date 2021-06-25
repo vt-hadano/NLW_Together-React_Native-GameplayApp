@@ -1,39 +1,68 @@
 import { StyleSheet } from "react-native";
-import { getBottomSpace } from "react-native-iphone-x-helper";
+import { color } from "react-native-reanimated";
 import { theme } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    banner: {
-        width: '100%',
-        height: 234,
-        marginBottom: 30
-    },
-    bannerContent: {
-        flex: 1,
-        justifyContent: "flex-end",
-        paddingHorizontal: 24,
-        marginBottom: 30
-    },
-    tittle: {
-        fontSize: 28,
+    label: {
         fontFamily: theme.fonts.tittle700,
-        color: theme.colors.heading,
-    },
-    subtittle: {
-        fontSize: 13,
-        fontFamily: theme.fonts.text400,
+        fontSize: 18,
         color: theme.colors.heading
     },
-    members: {
-        marginLeft: 24,
-        marginTop: 27
+    form: {
+        flex: 1,
+        paddingHorizontal: 24,
+        marginTop: 32,
+    },
+    select: {
+        flexDirection: "row",
+        width: '100%',
+        height: 68,
+        borderColor: theme.colors.secondary50,
+        borderWidth: 1,
+        borderRadius: 8,
+        alignItems: "center",
+        paddingRight: 25,
+        overflow: "hidden"
+    },
+    selectBody: {
+        flex: 1,
+        alignItems: "center"
+    },
+    image: {
+        width: 64,
+        height: 68,
+        backgroundColor: theme.colors.secondary40,
+        borderColor: theme.colors.secondary50,
+        borderWidth: 1,
+        borderRadius: 8,
+
+    },
+    field: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 30,
+    },
+    column: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    divider: {
+        marginRight: 4,
+        fontSize: 15,
+        fontFamily: theme.fonts.text500,
+        color: theme.colors.heading
+    },
+    characterLimit: {
+        fontFamily: theme.fonts.text400,
+        fontSize: 13,
+        color: theme.colors.highlight
     },
     footer: {
-        paddingHorizontal: 24,
-        paddingVertical: 20,
-        marginBottom: getBottomSpace(),
+        marginVertical: 20,
+        marginBottom: 56
     }
 });

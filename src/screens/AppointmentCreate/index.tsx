@@ -1,90 +1,142 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-    ImageBackground,
     Text,
     View,
-    FlatList
+    ScrollView,
+    Platform,
+    KeyboardAvoidingView
 } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
-import { BorderlessButton } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
+import { Feather } from "@expo/vector-icons";
 
 import { Background } from "../../components/Background";
 import { Header } from "../../components/Header";
-import { ListHeader } from "../../components/ListHeader";
-import { Member } from "../../components/Member";
-import { ListDivider } from "../../components/ListDivider";
-import { ButtonIcon } from "../../components/ButtonIcon";
+import { CategorySelect } from "../../components/CategorySelect";
+import { GuildIcon } from "../../components/GuildIcon";
+import { SmallInput } from "../../components/SmallInput";
+import { TextArea } from "../../components/TextArea";
+import { Button } from "../../components/Button"
+import { ModalView } from "../../components/ModalView"
+import { Guilds } from "../Guilds";
+import { GuildProps } from "../../components/Guild";
 
-import BannerImg from "../../assets/banner.png"
 import { styles } from "./styles";
 import { theme } from "../../global/styles/theme";
 
 export function AppointmentCreate() {
 
-    const members = [
-        {
-            id: '1',
-            userName: 'Vt_Hadano',
-            avatar_url: 'http://github.com/vt-hadano.png',
-            status: 'online'
-        },
-        {
-            id: '2',
-            userName: 'DjangoWinnfield',
-            avatar_url: 'https://github.com/emersonBarreiro.png',
-            status: 'offline'
-        },
-        {
-            id: '3',
-            userName: 'GravetoGeek',
-            avatar_url: 'https://github.com/GravetoGeek.png',
-            status: 'offline'
-        }
-    ]
+    const [category, setCategory] = useState('');
+    const [openGuildsModal, setOpenGuildsModal] = useState(false);
+    const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
+
+    function handleOpenGuilds(){
+        setOpenGuildsModal(true);
+    }
+
+    function handleGuildSelect(guild: GuildProps) {
+        setOpenGuildsModal(false);
+        setGuild(guild);
+    }
 
     return (
-        <Background>
-                <Header
-                    tittle="Detalhes"
-                    action={
-                        <BorderlessButton>
-                            <Fontisto
-                                name="share"
-                                size={24}
-                                color={theme.colors.primary}
-                            />
-                        </BorderlessButton>
-                    }
-                />
-                <ImageBackground
-                    source={BannerImg}
-                    style={styles.banner}
-                >
-                    <View style={styles.bannerContent}>
-                        <Text style={styles.tittle}>
-                            Lendários
-                        </Text>
-                        <Text style={styles.subtittle}>
-                            É hoje que vamos chegar ao challenger sem perder uma partida md10
-                        </Text>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <ScrollView>
+                <Background>
+                    <Header
+                        tittle="Agendar partida"
+                    />
+
+                    <Text style={[
+                        styles.label,
+                        {
+                            marginLeft: 24,
+                            marginTop: 36,
+                            marginBottom: 18
+                        }
+                    ]}>
+                        Categoria
+                    </Text>
+                    <View>
+                        <CategorySelect
+                            hasCheckBox
+                            setCategory={setCategory}
+                            categorySelected={category}
+                        />
                     </View>
-                </ImageBackground>
-                <ListHeader
-                    tittle="Jogadores"
-                    subtittle="Total 3"
-                />
-                <FlatList
-                    data={members}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => (
-                        <Member data={item} />
-                    )}
-                    ItemSeparatorComponent={() => <ListDivider />}
-                    style={styles.members}
-                />
-                <View style={styles.footer}>
-                    <ButtonIcon tittle="Entrar na partida" />
-                </View>
-        </Background>
+
+                    <View style={styles.form}>
+                        <RectButton onPress={handleOpenGuilds}>
+                            <View style={styles.select}>
+                                {
+                                    guild.icon ?
+                                    <GuildIcon /> :
+                                    <View style={styles.image} />
+                                }
+                                <View style={styles.selectBody}>
+                                    <Text style={styles.label}>
+                                        {guild.name ? guild.name : "Selecione um servidor"}
+                                    </Text>
+                                </View>
+                                <Feather
+                                    name="chevron-right"
+                                    color={theme.colors.heading}
+                                    size={18}
+                                />
+                            </View>
+                        </RectButton>
+
+                        <View style={styles.field}>
+                            <View>
+                                <Text style={styles.label}>
+                                    Dia e Mês
+                                </Text>
+
+                                <View style={styles.column}>
+                                    <SmallInput maxLength={2} />
+                                    <Text style={styles.divider}>/</Text>
+                                    <SmallInput maxLength={2} />
+                                </View>
+                            </View>
+
+                            <View>
+                                <Text style={styles.label}>
+                                    Hora e minuto
+                                </Text>
+
+                                <View style={styles.column}>
+                                    <SmallInput maxLength={2} />
+                                    <Text style={styles.divider}>:</Text>
+                                    <SmallInput maxLength={2} />
+                                </View>
+                            </View>
+
+                        </View>
+                        <View style={[styles.field, { marginBottom: 12 }]}>
+                            <Text style={styles.label}>
+                                Descrição
+                            </Text>
+                            <Text style={styles.characterLimit}>
+                                Max 100 caracteres
+                            </Text>
+                        </View>
+                        <TextArea
+                            multiline
+                            maxLength={100}
+                            numberOfLines={5}
+                            autoCorrect={false}
+                        />
+                        <View style={styles.footer}>
+                            <Button tittle="Agendar" />
+                        </View>
+                    </View>
+                </Background>
+            </ScrollView>
+            <ModalView visible={openGuildsModal}>
+                <Guilds handleGuildSelect={handleGuildSelect}/>
+            </ModalView>
+        </KeyboardAvoidingView>
     )
 }

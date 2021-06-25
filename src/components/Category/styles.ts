@@ -21,7 +21,8 @@ export const styles = StyleSheet.create({
     tittle: {
         fontFamily: theme.fonts.tittle700,
         color: theme.colors.heading,
-        fontSize: 15
+        fontSize: 15,
+        marginTop: 15
     },
     check: {
         position: 'absolute',
