@@ -10,6 +10,8 @@ export const styles =StyleSheet.create({
         color: theme.colors.heading,
         fontFamily: theme.fonts.tittle700,
         marginRight: 4,
-        textAlign: "center"
+        textAlign: "center",
+        borderWidth: 1,
+        borderColor: theme.colors.secondary50
     },
 });

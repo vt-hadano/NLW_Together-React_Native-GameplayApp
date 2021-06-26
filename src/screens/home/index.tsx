@@ -35,8 +35,56 @@ export function Home() {
         {
             id: '2',
             guild: {
-                id: '1',
-                name: 'Lendários',
+                id: '2',
+                name: 'Gamers',
+                icon: null,
+                owner: true
+            },
+            category: '1',
+            date: '22/06 às 20:40',
+            description: 'Hoje vamos chegar ao challenger sem perder uma partida md10'
+        },
+        {
+            id: '3',
+            guild: {
+                id: '3',
+                name: 'DnD',
+                icon: null,
+                owner: true
+            },
+            category: '1',
+            date: '22/06 às 20:40',
+            description: 'Hoje vamos chegar ao challenger sem perder uma partida md10'
+        },
+        {
+            id: '4',
+            guild: {
+                id: '4',
+                name: 'WeebNation',
+                icon: null,
+                owner: true
+            },
+            category: '1',
+            date: '22/06 às 20:40',
+            description: 'Hoje vamos chegar ao challenger sem perder uma partida md10'
+        },
+        {
+            id: '5',
+            guild: {
+                id: '5',
+                name: 'Otakus4Life',
+                icon: null,
+                owner: true
+            },
+            category: '1',
+            date: '22/06 às 20:40',
+            description: 'Hoje vamos chegar ao challenger sem perder uma partida md10'
+        },
+        {
+            id: '6',
+            guild: {
+                id: '6',
+                name: 'Memes everywhere',
                 icon: null,
                 owner: true
             },
@@ -60,37 +108,33 @@ export function Home() {
 
     return (
         <Background>
-            <View>
-                <View style={styles.header}>
-                    <Profile />
-                    <ButtonAdd onPress= {handleAppointmentCreate}/>
+            <View style={styles.header}>
+                <Profile />
+                <ButtonAdd onPress={handleAppointmentCreate} />
 
-                </View>
-                <CategorySelect
-                    categorySelected={category}
-                    setCategory={handleCategorySelect}
-                />
-
-                <View style={styles.content}>
-                    <ListHeader
-                        tittle="Partidas agendadas"
-                        subtittle="Total 6"
-                    />
-                    <FlatList
-                        data={appointment}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => (
-                            <Appointment
-                                data={item}
-                                onPress={handleAppointmentDetails}
-                            />
-                        )}
-                        ItemSeparatorComponent={() => <ListDivider />}
-                        style={styles.matches}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </View>
             </View>
+            <CategorySelect
+                categorySelected={category}
+                setCategory={handleCategorySelect}
+            />
+            <ListHeader
+                tittle="Partidas agendadas"
+                subtittle="Total 6"
+            />
+            <FlatList
+                data={appointment}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <Appointment
+                        data={item}
+                        onPress={handleAppointmentDetails}
+                    />
+                )}
+                ItemSeparatorComponent={() => <ListDivider />}
+                contentContainerStyle={{paddingBottom: 69}}
+                style={styles.matches}
+                showsVerticalScrollIndicator={false}
+            />
         </Background>
     );
 }

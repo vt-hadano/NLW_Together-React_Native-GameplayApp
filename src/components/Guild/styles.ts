@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        justifyContent: "center"
+        justifyContent: "center",
+        marginLeft: 20
     },
     tittle: {
         fontFamily: theme.fonts.tittle700,
@@ -21,8 +22,6 @@ export const styles = StyleSheet.create({
     type: {
         fontFamily: theme.fonts.text400,
         color: theme.colors.heading,
-        fontSize: 13,
-        marginBottom: 24
-
+        fontSize: 13
     }
 });

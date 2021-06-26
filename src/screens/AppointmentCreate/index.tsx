@@ -28,13 +28,21 @@ export function AppointmentCreate() {
     const [category, setCategory] = useState('');
     const [openGuildsModal, setOpenGuildsModal] = useState(false);
     const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
+    
+    function handleCategorySelect(categoryId: string) {
+        setCategory(categoryId);
+    }
 
     function handleOpenGuilds(){
         setOpenGuildsModal(true);
     }
 
-    function handleGuildSelect(guild: GuildProps) {
+    function handleCloseGuilds(){
         setOpenGuildsModal(false);
+    }
+
+    function handleGuildSelect(guild: GuildProps) {
+        handleCloseGuilds();
         setGuild(guild);
     }
 
@@ -62,7 +70,7 @@ export function AppointmentCreate() {
                     <View>
                         <CategorySelect
                             hasCheckBox
-                            setCategory={setCategory}
+                            setCategory={handleCategorySelect}
                             categorySelected={category}
                         />
                     </View>
@@ -90,7 +98,7 @@ export function AppointmentCreate() {
 
                         <View style={styles.field}>
                             <View>
-                                <Text style={styles.label}>
+                                <Text style={[styles.label, {marginBottom: 12}]}>
                                     Dia e Mês
                                 </Text>
 
@@ -102,7 +110,7 @@ export function AppointmentCreate() {
                             </View>
 
                             <View>
-                                <Text style={styles.label}>
+                                <Text style={[styles.label, {marginBottom: 12}]}>
                                     Hora e minuto
                                 </Text>
 
@@ -134,7 +142,7 @@ export function AppointmentCreate() {
                     </View>
                 </Background>
             </ScrollView>
-            <ModalView visible={openGuildsModal}>
+            <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
                 <Guilds handleGuildSelect={handleGuildSelect}/>
             </ModalView>
         </KeyboardAvoidingView>

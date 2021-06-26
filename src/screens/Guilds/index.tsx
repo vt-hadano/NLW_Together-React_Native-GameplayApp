@@ -27,6 +27,34 @@ export function Guilds({ handleGuildSelect }: Props) {
             name: 'NLW',
             icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
             owner: true
+        },
+        
+        {
+            id: '3',
+            name: 'DnD',
+            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
+            owner: true
+        },
+        
+        {
+            id: '4',
+            name: 'WeebNation',
+            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
+            owner: true
+        },
+        
+        {
+            id: '5',
+            name: 'Games4Life',
+            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
+            owner: true
+        },
+        
+        {
+            id: '6',
+            name: 'Memes Everywhere',
+            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
+            owner: true
         }
     ]
 
@@ -42,7 +70,9 @@ export function Guilds({ handleGuildSelect }: Props) {
 
                 )}
                 showsVerticalScrollIndicator={false}
-                ItemSeparatorComponent={() => <ListDivider />}
+                ItemSeparatorComponent={() => <ListDivider isCentered/>}
+                contentContainerStyle={{paddingBottom: 68, paddingTop: 103}}
+                ListHeaderComponent={() => <ListDivider isCentered/>}
                 style={styles.guilds}
             />
         </View>
