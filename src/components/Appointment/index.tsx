@@ -34,43 +34,47 @@ export function Appointment({ data, ...rest }: Props) {
 
     return (
         <RectButton {...rest}>
-            <View style={styles.container}>
-                <LinearGradient
-                    style={styles.guildIconContainer}
-                    colors={[secondary50, secondary70]}
-                >
-                    <GuildIcon />
-                </LinearGradient>
-                <View style={styles.content}>
-                    <View style={styles.header}>
-                        <Text style={styles.tittle}>
-                            {data.guild.name}
-                        </Text>
-
-                        <Text style={styles.category}>
-                            {category.tittle}
-                        </Text>
-                    </View>
-
-                    <View style={styles.footer}>
-                        <View style={styles.dateInfo}>
-                            <CalendarSvg />
-                            <Text style={styles.date}>
-                                {data.date}
-                            </Text>
-                        </View>
-
-                        <View style={styles.playersInfo}>
-                            <PlayerSvg fill={owner ? primary : on} />
-                            <Text style={[styles.player, { color: owner ? primary : on }]}>
-                                {owner ? 'Anfritrião' : 'Visitante'}
-                            </Text>
-                        </View>
-                    </View>
-
+          <View style={styles.container}>
+            <LinearGradient 
+              style={styles.guildIconContainer}
+              colors={[secondary50, secondary70]}
+            >
+              <GuildIcon guildId={data.guild.id} iconId={data.guild.icon} />
+            </LinearGradient>
+    
+            <View style={styles.content}>
+              <View style={styles.header}>
+                <Text style={styles.tittle}>
+                  { data.guild.name }
+                </Text>
+    
+                <Text style={styles.category}>
+                  { category.tittle }
+                </Text>
+              </View>
+    
+              <View style={styles.footer}>
+                <View style={styles.dateInfo}>
+                  <CalendarSvg />
+    
+                  <Text style={styles.date}>
+                    { data.date }                
+                  </Text>
                 </View>
-
+    
+                <View style={styles.playersInfo}>
+                  <PlayerSvg fill={ owner ? primary : on}/>
+    
+                  <Text style={[
+                    styles.player, 
+                    { color: owner ? primary : on }
+                  ]}>
+                    { owner ? 'Anfitrião' : 'Visitante' }
+                  </Text>
+                </View>          
+              </View>
             </View>
+          </View>
         </RectButton>
     );
 }

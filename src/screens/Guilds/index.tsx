@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     FlatList
 } from "react-native";
 import { Guild, GuildProps } from "../../components/Guild";
 import { ListDivider } from "../../components/ListDivider";
+import { Load } from "../../components/Load";
+import { api } from "../../services/api";
 
 import { styles } from "./styles";
 
@@ -14,67 +16,39 @@ type Props = {
 
 export function Guilds({ handleGuildSelect }: Props) {
 
-    const guilds = [
-        {
-            id: '1',
-            name: 'Lendários',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        },
-        
-        {
-            id: '2',
-            name: 'NLW',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        },
-        
-        {
-            id: '3',
-            name: 'DnD',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        },
-        
-        {
-            id: '4',
-            name: 'WeebNation',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        },
-        
-        {
-            id: '5',
-            name: 'Games4Life',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        },
-        
-        {
-            id: '6',
-            name: 'Memes Everywhere',
-            icon: 'https://gamerssuffice.com/wp-content/uploads/2019/11/How-to-add-bots-to-discord-500x405.jpg',
-            owner: true
-        }
-    ]
+    const [guilds, setGuilds] = useState<GuildProps[]>([])
+    const [loading, setLoading] = useState(true);
+
+    async function fetchGuilds() {
+        const response = await api.get('users/@me/guilds');
+        setGuilds(response.data);
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        fetchGuilds()
+    }, []);
 
     return (
         <View>
-            <FlatList
-                data={guilds}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Guild data={item} 
-                        onPress={() => handleGuildSelect(item)}
-                    />
+            {
+                loading ? <Load /> :
+                    <FlatList
+                        data={guilds}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => (
+                            <Guild data={item}
+                                onPress={() => handleGuildSelect(item)}
+                            />
 
-                )}
-                showsVerticalScrollIndicator={false}
-                ItemSeparatorComponent={() => <ListDivider isCentered/>}
-                contentContainerStyle={{paddingBottom: 68, paddingTop: 103}}
-                ListHeaderComponent={() => <ListDivider isCentered/>}
-                style={styles.guilds}
-            />
+                        )}
+                        showsVerticalScrollIndicator={false}
+                        ItemSeparatorComponent={() => <ListDivider isCentered />}
+                        contentContainerStyle={{ paddingBottom: 68, paddingTop: 103 }}
+                        ListHeaderComponent={() => <ListDivider isCentered />}
+                        style={styles.guilds}
+                    />
+            }
         </View>
     );
 
